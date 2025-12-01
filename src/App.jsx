@@ -15,6 +15,33 @@ function getMonthCells(year, month) {
 
 const weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
+// Custom kerning for two-digit day numbers
+// Neue Haas Grotesk lacks numeric kerning pairs — values tuned by eye
+const dayKern = {
+  10: -0.015,
+  11: -0.01,  // Two narrow 1s — tightest
+  12: 0.005,
+  13: 0.01,
+  14: -0.01,
+  15: -0.0025,
+  16: -0.015,
+  17: -0.025,  // 1+7 both open-sided
+  18: -0.01,
+  19: -0.0075,
+  20: 0.01,
+  21: 0.01,
+  22: 0.05,
+  23: 0.025,
+  24: -0.01,
+  25: 0.035,
+  26: 0.01,
+  27: 0.04,
+  28: 0.015,
+  29: 0.02,
+  30: 0.02,
+  31: 0.015,
+};
+
 function App() {
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
@@ -55,7 +82,15 @@ function App() {
         <div>
           <div className='grid grid-cols-7 text-9xl'>
             {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
-            {cells.map((d, i) => <div key={i} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{d}</div>)}
+            {cells.map((d, i) => (
+              <div
+                key={i}
+                className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]"
+                style={dayKern[d] ? { letterSpacing: `${-0.09 + dayKern[d]}em` } : undefined}
+              >
+                {d}
+              </div>
+            ))}
           </div>
         </div>
       </div>
