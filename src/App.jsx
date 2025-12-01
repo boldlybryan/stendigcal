@@ -119,7 +119,7 @@ function App() {
                     </span>
                     {/* Second date - bottom right */}
                     <span 
-                      className="text-[0.475em] tracking-[-0.09em] block text-right pr-4"
+                      className="text-[0.475em] tracking-[-0.09em] block text-right pr-2 md:pr-4"
                       style={dayKern[d[1]] ? { letterSpacing: `${-0.09 + dayKern[d[1]]}em` } : undefined}
                     >
                       {d[1]}
