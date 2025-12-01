@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className='font-display p-4 flex flex-col justify-between h-screen'>
-      <div className='grid grid-cols-7 text-5xl tracking-tighter'>
+      <div className='grid grid-cols-7 tracking-tighter' style={{ fontSize: 'var(--header-size)' }}>
         <div className='col-span-3 flex gap-6'>
           <button onClick={prev}>prev</button>
           <button onClick={next}>next</button>
@@ -49,7 +49,7 @@ function App() {
         <div className='col-span-2'>{monthName}</div>
       </div>
       <div>
-        <div className='grid grid-cols-7 text-8xl'>
+        <div className='grid grid-cols-7' style={{ fontSize: 'var(--day-size)' }}>
           {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-none tracking-[-0.095em]">{day}</div>)}
           {cells.map((d, i) => <div key={i} className="border-l leading-none tracking-[-0.095em]">{d}</div>)}
         </div>
