@@ -1,8 +1,3 @@
-:root {
-  --day-size: max(3rem, min(12vw, 14vh));
-  --header-size: max(1.5rem, 5vw);
-}
-
 .font-display {
   font-family: "neue-haas-grotesk-display", sans-serif;
   font-weight: 600;

@@ -40,22 +40,24 @@ function App() {
   };
 
   return (
-    <div className='font-display p-4 flex flex-col justify-between h-screen dark:bg-black dark:text-white'>
-      <div className='grid grid-cols-7 tracking-tighter' style={{ fontSize: 'var(--header-size)' }}>
-        <div className='col-span-3 flex gap-6'>
-          <button onClick={prev}>prev</button>
-          <button onClick={next}>next</button>
+    <div className='h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
+      <div className='font-display p-4 flex flex-col justify-between h-full w-full max-w-4xl'>
+        <div className='grid grid-cols-7 tracking-tighter text-5xl'>
+          <div className='col-span-3 flex gap-6'>
+            <button onClick={prev}>prev</button>
+            <button onClick={next}>next</button>
+          </div>
+          <div className='col-5'>{year}</div>
+          <div className='col-span-2'>{monthName}</div>
         </div>
-        <div className='col-5'>{year}</div>
-        <div className='col-span-2'>{monthName}</div>
+        <div>
+          <div className='grid grid-cols-7 text-8xl'>
+            {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-[0.75] tracking-[-0.095em]">{day}</div>)}
+            {cells.map((d, i) => <div key={i} className="border-l leading-[0.75] tracking-[-0.095em]">{d}</div>)}
+          </div>
+        </div>
       </div>
       <ThemeSwitcher />
-      <div>
-        <div className='grid grid-cols-7' style={{ fontSize: 'var(--day-size)' }}>
-          {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-none tracking-[-0.095em]">{day}</div>)}
-          {cells.map((d, i) => <div key={i} className="border-l leading-none tracking-[-0.095em]">{d}</div>)}
-        </div>
-      </div>
     </div>
   );
 }
