@@ -7,9 +7,25 @@ function getMonthCells(year, month) {
   // Shift so Monday = 0, Sunday = 6
   const startDay = (new Date(year, month, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  // Build initial cells
   const cells = Array(startDay).fill(null);
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
-  while (cells.length < 42) cells.push(null);
+  
+  // If we need a 6th row (more than 35 cells), stack overflow days
+  // Stendig style: combine with same weekday from previous week (e.g., "24/31")
+  if (cells.length > 35) {
+    const overflow = cells.splice(35); // Remove overflow days
+    overflow.forEach((day, i) => {
+      if (day !== null) {
+        const targetIdx = 28 + i; // 5th row starts at index 28
+        cells[targetIdx] = [cells[targetIdx], day]; // Stack as array
+      }
+    });
+  }
+  
+  // Pad to exactly 35 cells (5 rows)
+  while (cells.length < 35) cells.push(null);
   return cells;
 }
 
@@ -82,15 +98,48 @@ function App() {
         <div>
           <div className='grid grid-cols-7 text-9xl'>
             {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
-            {cells.map((d, i) => (
-              <div
-                key={i}
-                className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]"
-                style={dayKern[d] ? { letterSpacing: `${-0.09 + dayKern[d]}em` } : undefined}
-              >
-                {d}
-              </div>
-            ))}
+            {cells.map((d, i) => {
+              const isStacked = Array.isArray(d);
+              
+              if (isStacked) {
+                // Stacked cell: two dates with diagonal divider
+                return (
+                  <div
+                    key={i}
+                    className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 relative leading-[0.775]"
+                  >
+                    {/* Diagonal line from top-right to bottom-left */}
+                    <div className="stacked-divider absolute inset-0 pointer-events-none" />
+                    {/* First date - top left */}
+                    <span 
+                      className="text-[0.475em] tracking-[-0.09em] block pl-1"
+                      style={dayKern[d[0]] ? { letterSpacing: `${-0.09 + dayKern[d[0]]}em` } : undefined}
+                    >
+                      {d[0]}
+                    </span>
+                    {/* Second date - bottom right */}
+                    <span 
+                      className="text-[0.475em] tracking-[-0.09em] block text-right pr-4"
+                      style={dayKern[d[1]] ? { letterSpacing: `${-0.09 + dayKern[d[1]]}em` } : undefined}
+                    >
+                      {d[1]}
+                    </span>
+                  </div>
+                );
+              }
+              
+              // Regular single-date cell
+              const kern = dayKern[d] ? { letterSpacing: `${-0.09 + dayKern[d]}em` } : undefined;
+              return (
+                <div
+                  key={i}
+                  className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]"
+                  style={kern}
+                >
+                  {d}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

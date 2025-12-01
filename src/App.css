@@ -1,2 +1,19 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
+
+/* Diagonal divider for stacked date cells */
+/* Uses same colors as calendar borders: neutral-200 / neutral-700 */
+.stacked-divider {
+  --divider-color: rgb(229 229 229); /* neutral-200 */
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 0.5px),
+    var(--divider-color) calc(50% - 0.5px),
+    var(--divider-color) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+.dark .stacked-divider {
+  --divider-color: rgb(64 64 64); /* neutral-700 */
+}
