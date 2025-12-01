@@ -3,7 +3,9 @@ import './App.css'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 function getMonthCells(year, month) {
-  const startDay = new Date(year, month, 1).getDay();
+  // getDay() returns 0 for Sunday, 1 for Monday, etc.
+  // Shift so Monday = 0, Sunday = 6
+  const startDay = (new Date(year, month, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const cells = Array(startDay).fill(null);
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
@@ -11,7 +13,7 @@ function getMonthCells(year, month) {
   return cells;
 }
 
-const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
 function App() {
   const now = new Date();
@@ -52,8 +54,8 @@ function App() {
         </div>
         <div>
           <div className='grid grid-cols-7 text-8xl'>
-            {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-[0.75] tracking-[-0.095em]">{day}</div>)}
-            {cells.map((d, i) => <div key={i} className="border-l leading-[0.75] tracking-[-0.095em]">{d}</div>)}
+            {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
+            {cells.map((d, i) => <div key={i} className="pl-[2px] border-l border-neutral-200 tracking-[-0.09em] leading-[0.775]">{d}</div>)}
           </div>
         </div>
       </div>
