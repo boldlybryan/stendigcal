@@ -54,8 +54,8 @@ function App() {
         </div>
         <div>
           <div className='grid grid-cols-7 text-8xl'>
-            {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
-            {cells.map((d, i) => <div key={i} className="pl-[2px] border-l border-neutral-200 tracking-[-0.09em] leading-[0.775]">{d}</div>)}
+            {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
+            {cells.map((d, i) => <div key={i} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{d}</div>)}
           </div>
         </div>
       </div>
