@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { ThemeSwitcher } from './ThemeSwitcher'
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 function getMonthCells(year, month) {
   // getDay() returns 0 for Sunday, 1 for Monday, etc.
