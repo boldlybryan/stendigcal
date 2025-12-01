@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 function getMonthCells(year, month) {
   const startDay = new Date(year, month, 1).getDay();
@@ -39,7 +40,7 @@ function App() {
   };
 
   return (
-    <div className='font-display p-4 flex flex-col justify-between h-screen'>
+    <div className='font-display p-4 flex flex-col justify-between h-screen dark:bg-black dark:text-white'>
       <div className='grid grid-cols-7 tracking-tighter' style={{ fontSize: 'var(--header-size)' }}>
         <div className='col-span-3 flex gap-6'>
           <button onClick={prev}>prev</button>
@@ -48,6 +49,7 @@ function App() {
         <div className='col-5'>{year}</div>
         <div className='col-span-2'>{monthName}</div>
       </div>
+      <ThemeSwitcher />
       <div>
         <div className='grid grid-cols-7' style={{ fontSize: 'var(--day-size)' }}>
           {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-none tracking-[-0.095em]">{day}</div>)}
