@@ -32,16 +32,15 @@ function getMonthCells(year, month) {
 const weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
 // Custom kerning for two-digit day numbers
-// Neue Haas Grotesk lacks numeric kerning pairs — values tuned by eye
 const dayKern = {
   10: -0.015,
-  11: -0.01,  // Two narrow 1s — tightest
+  11: -0.01,
   12: 0.005,
   13: 0.01,
   14: -0.01,
   15: -0.0025,
   16: -0.015,
-  17: -0.025,  // 1+7 both open-sided
+  17: -0.025,
   18: -0.01,
   19: -0.0075,
   20: 0.01,
