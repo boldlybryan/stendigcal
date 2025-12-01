@@ -86,9 +86,9 @@ function App() {
 
   return (
     <div className='h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
-      <div className='font-display p-4 flex flex-col justify-between h-full w-full max-w-6xl'>
-        <div className='grid grid-cols-7 tracking-tighter text-5xl'>
-          <div className='col-span-3 flex gap-6'>
+      <div className='font-display p-2 sm:p-4 flex flex-col justify-between h-full w-full max-w-6xl'>
+        <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
+          <div className='col-span-3 flex gap-2 sm:gap-6'>
             <button onClick={prev}>prev</button>
             <button onClick={next}>next</button>
           </div>
@@ -96,7 +96,7 @@ function App() {
           <div className='col-span-2'>{monthName}</div>
         </div>
         <div>
-          <div className='grid grid-cols-7 text-9xl'>
+          <div className='grid grid-cols-7 text-[clamp(2.5rem,11.4vw,8rem)]'>
             {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
             {cells.map((d, i) => {
               const isStacked = Array.isArray(d);
