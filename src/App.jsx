@@ -92,7 +92,7 @@ function App() {
             <button onClick={prev}>prev</button>
             <button onClick={next}>next</button>
           </div>
-          <div className='col-5'>{year}</div>
+          <div>{year}</div>
           <div className='col-span-2'>{monthName}</div>
         </div>
         <div>

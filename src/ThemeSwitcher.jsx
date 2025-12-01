@@ -10,7 +10,7 @@ export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="font-text flex flex-col items-end text-sm fixed bottom-4 right-4">
+    <div className="font-text hidden xl:flex flex-col items-end text-sm fixed bottom-4 right-4">
       {options.map(({ value, label }) => (
         <button
           key={value}
