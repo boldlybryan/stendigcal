@@ -39,13 +39,20 @@ function App() {
   };
 
   return (
-    <div>
-      <div>{monthName} {year}</div>
-      <button onClick={prev}>prev</button>
-      <button onClick={next}>next</button>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
-        {weekdays.map((day, i) => <div key={`h${i}`}>{day}</div>)}
-        {cells.map((d, i) => <div key={i}>{d}</div>)}
+    <div className='font-display p-4 flex flex-col justify-between h-screen'>
+      <div className='grid grid-cols-7 text-5xl tracking-tighter'>
+        <div className='col-span-3 flex gap-6'>
+          <button onClick={prev}>prev</button>
+          <button onClick={next}>next</button>
+        </div>
+        <div className='col-5'>{year}</div>
+        <div className='col-span-2'>{monthName}</div>
+      </div>
+      <div>
+        <div className='grid grid-cols-7 text-8xl'>
+          {weekdays.map((day, i) => <div key={`h${i}`} className="border-l leading-none tracking-[-0.095em]">{day}</div>)}
+          {cells.map((d, i) => <div key={i} className="border-l leading-none tracking-[-0.095em]">{d}</div>)}
+        </div>
       </div>
     </div>
   );
