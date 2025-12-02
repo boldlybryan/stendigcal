@@ -48,7 +48,7 @@ export function YearView({ year, onYearChange, onMonthSelect }) {
   const cellWeekday = "pr-2 sm:pr-2.5 !border-l-0";
   const cellDay = "";
   const cellMonday = "text-[#00A0E4]";
-  const cellClickable = "cursor-pointer hover:opacity-70 transition-opacity";
+  const cellClickable = "cursor-pointer";
 
   return (
     <div className="w-full max-w-7xl flex flex-col py-4">

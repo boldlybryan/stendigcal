@@ -106,7 +106,7 @@ function App() {
               <button onClick={prev}>prev</button>
               <button onClick={next}>next</button>
             </div>
-            <button onClick={() => setView('year')} className='hover:opacity-70 transition-opacity'>{year}</button>
+            <button onClick={() => setView('year')} className='cursor-pointer'>{year}</button>
             <div className='col-span-2'>{monthName}</div>
           </div>
           <div>
