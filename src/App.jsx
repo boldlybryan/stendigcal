@@ -98,9 +98,9 @@ function App() {
   };
 
   return (
-    <div className='h-auto w-screen flex items-start justify-center dark:bg-black dark:text-white'>
+    <div className='h-auto w-screen flex items-start justify-center dark:bg-black dark:text-white px-2'>
       {view === 'month' && (
-        <div className='font-display flex flex-col justify-between h-screen w-full max-w-7xl pt-4'>
+        <div className='font-display flex flex-col justify-between h-screen w-full max-w-7xl py-4'>
           <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
             <div className='col-span-3 flex gap-2 sm:gap-6'>
               <button onClick={prev}>prev</button>

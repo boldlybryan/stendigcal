@@ -58,7 +58,9 @@ export function YearView({ year, onYearChange, onMonthSelect }) {
           <button onClick={() => onYearChange(year - 1)}>prev</button>
           <button onClick={() => onYearChange(year + 1)}>next</button>
         </div>
-        <div className="text-[96px] font-display tracking-[-0.05em] leading-[0.9]">{year}</div>
+        <div className="px-2">
+          <div className="text-[96px] font-display tracking-[-0.05em] leading-[0.9]">{year}</div>
+        </div>
       </div>
       
       {/* Calendar grid - scrollable container */}
