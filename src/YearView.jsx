@@ -51,18 +51,18 @@ export function YearView({ year, onYearChange, onMonthSelect }) {
   const cellClickable = "cursor-pointer hover:opacity-70 transition-opacity";
 
   return (
-    <div className="w-full max-w-6xl h-full flex flex-col">
+    <div className="w-full max-w-7xl flex flex-col">
       {/* Dark header bar */}
-      <div className="flex justify-between items-center shrink-0">
+      <div className="flex justify-between items-start shrink-0 mb-20">
         <div className="flex gap-2 sm:gap-6 text-[clamp(1.25rem,4.3vw,3rem)] tracking-tighter font-display">
           <button onClick={() => onYearChange(year - 1)}>prev</button>
           <button onClick={() => onYearChange(year + 1)}>next</button>
         </div>
-        <div className="text-[96px] font-display tracking-[-0.05em]">{year}</div>
+        <div className="text-[96px] font-display tracking-[-0.05em] leading-[0.9]">{year}</div>
       </div>
       
       {/* Calendar grid - scrollable container */}
-      <div className="flex-1 overflow-x-auto overflow-y-auto">
+      <div className="flex-1">
         <div className="flex flex-col font-display">
           {/* Month header row */}
           <div className="grid grid-cols-[6rem_repeat(12,1fr)]">

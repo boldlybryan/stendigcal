@@ -98,9 +98,8 @@ function App() {
   };
 
   return (
-    <div className='h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
+    <div className='min-h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
       {/* View container with fade transition */}
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${view === 'month' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className='font-display p-2 sm:p-4 flex flex-col justify-between h-full w-full max-w-7xl'>
           <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
             <div className='col-span-3 flex gap-2 sm:gap-6'>
@@ -156,28 +155,14 @@ function App() {
                 );
               })}
             </div>
-          </div>
         </div>
       </div>
-      
       {/* Year view container with fade transition */}
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${view === 'year' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className='h-full w-full max-w-6xl flex flex-col'>
-          <YearView 
-            year={year} 
-            onYearChange={handleYearChange} 
-            onMonthSelect={handleMonthSelect} 
-          />
-          {/* Back to month button */}
-          <button 
-            onClick={() => setView('month')}
-            className='absolute bottom-4 left-4 font-display text-sm opacity-50 hover:opacity-100 transition-opacity tracking-tight'
-          >
-            ← month
-          </button>
-        </div>
-      </div>
-      
+        <YearView 
+          year={year} 
+          onYearChange={handleYearChange} 
+          onMonthSelect={handleMonthSelect} 
+        />
       <ThemeSwitcher />
       <Analytics />
     </div>
