@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { ThemeSwitcher } from './ThemeSwitcher'
+import { YearView } from './YearView'
 import { Analytics } from "@vercel/analytics/react"
 
 function getMonthCells(year, month) {
@@ -62,6 +63,7 @@ function App() {
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
+  const [view, setView] = useState('month'); // 'month' | 'year'
 
   const cells = getMonthCells(year, month);
   const monthName = new Date(year, month).toLocaleString('default', { month: 'long' });
@@ -84,65 +86,98 @@ function App() {
     }
   };
 
+  // Handle month selection from year view
+  const handleMonthSelect = (selectedMonth) => {
+    setMonth(selectedMonth);
+    setView('month');
+  };
+
+  // Handle year change in year view
+  const handleYearChange = (newYear) => {
+    setYear(newYear);
+  };
+
   return (
     <div className='h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
-      <div className='font-display p-2 sm:p-4 flex flex-col justify-between h-full w-full max-w-6xl'>
-        <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
-          <div className='col-span-3 flex gap-2 sm:gap-6'>
-            <button onClick={prev}>prev</button>
-            <button onClick={next}>next</button>
+      {/* View container with fade transition */}
+      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${view === 'month' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className='font-display p-2 sm:p-4 flex flex-col justify-between h-full w-full max-w-7xl'>
+          <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
+            <div className='col-span-3 flex gap-2 sm:gap-6'>
+              <button onClick={prev}>prev</button>
+              <button onClick={next}>next</button>
+            </div>
+            <button onClick={() => setView('year')} className='hover:opacity-70 transition-opacity'>{year}</button>
+            <div className='col-span-2'>{monthName}</div>
           </div>
-          <div>{year}</div>
-          <div className='col-span-2'>{monthName}</div>
-        </div>
-        <div>
-          <div className='grid grid-cols-7 text-[clamp(2.5rem,11.4vw,8rem)]'>
-            {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
-            {cells.map((d, i) => {
-              const isStacked = Array.isArray(d);
-              
-              if (isStacked) {
-                // Stacked cell: two dates with diagonal divider
+          <div>
+            <div className='grid grid-cols-7 text-[clamp(2.5rem,11.4vw,8rem)]'>
+              {weekdays.map((day, i) => <div key={`h${i}`} className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]">{day}</div>)}
+              {cells.map((d, i) => {
+                const isStacked = Array.isArray(d);
+                
+                if (isStacked) {
+                  // Stacked cell: two dates with diagonal divider
+                  return (
+                    <div
+                      key={i}
+                      className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 relative leading-[0.775]"
+                    >
+                      {/* Diagonal line from top-right to bottom-left */}
+                      <div className="stacked-divider absolute inset-0 pointer-events-none" />
+                      {/* First date - top left */}
+                      <span 
+                        className="text-[0.475em] tracking-[-0.09em] block pl-1"
+                        style={dayKern[d[0]] ? { letterSpacing: `${-0.09 + dayKern[d[0]]}em` } : undefined}
+                      >
+                        {d[0]}
+                      </span>
+                      {/* Second date - bottom right */}
+                      <span 
+                        className="text-[0.475em] tracking-[-0.09em] block text-right pr-2 md:pr-4"
+                        style={dayKern[d[1]] ? { letterSpacing: `${-0.09 + dayKern[d[1]]}em` } : undefined}
+                      >
+                        {d[1]}
+                      </span>
+                    </div>
+                  );
+                }
+                
+                // Regular single-date cell
+                const kern = dayKern[d] ? { letterSpacing: `${-0.09 + dayKern[d]}em` } : undefined;
                 return (
                   <div
                     key={i}
-                    className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 relative leading-[0.775]"
+                    className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]"
+                    style={kern}
                   >
-                    {/* Diagonal line from top-right to bottom-left */}
-                    <div className="stacked-divider absolute inset-0 pointer-events-none" />
-                    {/* First date - top left */}
-                    <span 
-                      className="text-[0.475em] tracking-[-0.09em] block pl-1"
-                      style={dayKern[d[0]] ? { letterSpacing: `${-0.09 + dayKern[d[0]]}em` } : undefined}
-                    >
-                      {d[0]}
-                    </span>
-                    {/* Second date - bottom right */}
-                    <span 
-                      className="text-[0.475em] tracking-[-0.09em] block text-right pr-2 md:pr-4"
-                      style={dayKern[d[1]] ? { letterSpacing: `${-0.09 + dayKern[d[1]]}em` } : undefined}
-                    >
-                      {d[1]}
-                    </span>
+                    {d}
                   </div>
                 );
-              }
-              
-              // Regular single-date cell
-              const kern = dayKern[d] ? { letterSpacing: `${-0.09 + dayKern[d]}em` } : undefined;
-              return (
-                <div
-                  key={i}
-                  className="pl-[2px] border-l border-neutral-200 dark:border-neutral-700 tracking-[-0.09em] leading-[0.775]"
-                  style={kern}
-                >
-                  {d}
-                </div>
-              );
-            })}
+              })}
+            </div>
           </div>
         </div>
       </div>
+      
+      {/* Year view container with fade transition */}
+      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${view === 'year' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className='h-full w-full max-w-6xl flex flex-col'>
+          <YearView 
+            year={year} 
+            onYearChange={handleYearChange} 
+            onMonthSelect={handleMonthSelect} 
+          />
+          {/* Back to month button */}
+          <button 
+            onClick={() => setView('month')}
+            className='absolute bottom-4 left-4 font-display text-sm opacity-50 hover:opacity-100 transition-opacity tracking-tight'
+          >
+            ← month
+          </button>
+        </div>
+      </div>
+      
       <ThemeSwitcher />
       <Analytics />
     </div>
