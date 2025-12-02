@@ -99,7 +99,7 @@ function App() {
 
   return (
     <div className='min-h-screen w-screen flex items-center justify-center dark:bg-black dark:text-white'>
-      {/* View container with fade transition */}
+      {view === 'month' && (
         <div className='font-display p-2 sm:p-4 flex flex-col justify-between h-full w-full max-w-7xl'>
           <div className='grid grid-cols-7 tracking-tighter text-[clamp(1.25rem,4.3vw,3rem)]'>
             <div className='col-span-3 flex gap-2 sm:gap-6'>
@@ -155,14 +155,16 @@ function App() {
                 );
               })}
             </div>
+          </div>
         </div>
-      </div>
-      {/* Year view container with fade transition */}
+      )}
+      {view === 'year' && (
         <YearView 
           year={year} 
           onYearChange={handleYearChange} 
           onMonthSelect={handleMonthSelect} 
         />
+      )}
       <ThemeSwitcher />
       <Analytics />
     </div>
