@@ -51,7 +51,7 @@ export function YearView({ year, onYearChange, onMonthSelect }) {
   const cellClickable = "cursor-pointer hover:opacity-70 transition-opacity";
 
   return (
-    <div className="w-full max-w-7xl flex flex-col">
+    <div className="w-full max-w-7xl flex flex-col py-4">
       {/* Dark header bar */}
       <div className="flex justify-between items-start shrink-0 mb-20">
         <div className="flex gap-2 sm:gap-6 text-[clamp(1.25rem,4.3vw,3rem)] tracking-tighter font-display">
