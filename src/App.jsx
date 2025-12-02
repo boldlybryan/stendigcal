@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { flushSync } from 'react-dom'
 import './App.css'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { YearView } from './YearView'
@@ -86,10 +87,21 @@ function App() {
     }
   };
 
+  // Trigger view transition with fallback
+  const transitionTo = (newView) => {
+    if (!document.startViewTransition) {
+      setView(newView);
+      return;
+    }
+    document.startViewTransition(() => {
+      flushSync(() => setView(newView));
+    });
+  };
+
   // Handle month selection from year view
   const handleMonthSelect = (selectedMonth) => {
     setMonth(selectedMonth);
-    setView('month');
+    transitionTo('month');
   };
 
   // Handle year change in year view
@@ -106,7 +118,7 @@ function App() {
               <button onClick={prev}>prev</button>
               <button onClick={next}>next</button>
             </div>
-            <button onClick={() => setView('year')} className='cursor-pointer'>{year}</button>
+            <button onClick={() => transitionTo('year')} className='cursor-pointer'>{year}</button>
             <div className='col-span-2'>{monthName}</div>
           </div>
           <div>

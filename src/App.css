@@ -15,3 +15,10 @@
 .dark .stacked-divider {
   --divider-color: rgb(64 64 64); /* neutral-700 */
 }
+
+/* View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+  animation-timing-function: ease-out;
+}
